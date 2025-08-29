@@ -11,11 +11,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
 model Book {
   id    Int     @id @default(autoincrement())
   title  String
   author String 
-  email String @unique
-
+  read Boolean
   @@map("books")
+
 }
