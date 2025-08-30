@@ -5,17 +5,27 @@ import React, { useState } from "react";
 import Button from "./ReadButton";
 import { BookType } from "../types/book";
 
-const Book = ({ id, title, author, read }: BookType) => {
-  const [readStatus, setReadStatus] = useState(read);
+type BookProps = BookType & {
+  refetch: () => Promise<void>;
+};
+
+const Book = ({ id, title, author, read, refetch }: BookProps) => {
   const [loading, setLoading] = useState(false);
 
-  const handleToggleRead = () => {
+  const handleToggleRead = async () => {
     setLoading(true);
 
-    setTimeout(() => {
-      setReadStatus((prev) => !prev);
-      setLoading(false);
-    }, 1000);
+    await fetch("/api/books", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id }),
+    });
+
+    await refetch();
+
+    setLoading(false);
   };
 
   return (
@@ -30,7 +40,7 @@ const Book = ({ id, title, author, read }: BookType) => {
         </div>
       </div>
 
-      <Button read={readStatus} loading={loading} onClick={handleToggleRead} />
+      <Button read={read} loading={loading} onClick={handleToggleRead} />
     </div>
   );
 };

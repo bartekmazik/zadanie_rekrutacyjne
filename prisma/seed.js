@@ -5,10 +5,10 @@ const prisma = new PrismaClient();
 
 async function main() {
   // clear old data
-  await prisma.books.deleteMany();
+  await prisma.book.deleteMany();
 
   // dummy data - books
-  await prisma.books.createMany({
+  await prisma.book.createMany({
     data: [
       { title: "The Hobbit", author: "J.R.R. Tolkien", read: false },
       { title: "1984", author: "George Orwell", read: false },
