@@ -10,9 +10,11 @@ async function main() {
   // dummy data - books
   await prisma.book.createMany({
     data: [
-      { title: "The Hobbit", author: "J.R.R. Tolkien", read: false },
+      { title: "Hobbit", author: "J.R.R. Tolkien", read: false },
       { title: "1984", author: "George Orwell", read: false },
-      { title: "Pride and Prejudice", author: "Jane Austen", read: false },
+      { title: "Zbrodnia i kara", author: "Fiodor Dostojewski", read: false },
+      { title: "Pan Tadeusz", author: "Adam Mickiewicz", read: false },
+      { title: "Lalka", author: "Boleslaw Prus", read: false },
     ],
   });
 

@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Zadanie rekrutacyjne",
-  description: "Biblioteka",
+  description: "Book Tracker",
 };
 
 export default function RootLayout({
@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased p-12 `}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased p-4 md:p-12 `}
       >
         {children}
       </body>
