@@ -7,7 +7,7 @@ Aplikacja Book Tracker na potrzeby rekrutacji
 ### 1. Sklonuj repozytorium
 ```bash
 git clone https://github.com/bartekmazik/zadanie_rekrutacyjne.git
-cd zadanie_rekrutacyjny
+cd zadanie_rekrutacyjne
 ```
 ### 2. Setup npm
 ```bash
