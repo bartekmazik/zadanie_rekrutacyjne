@@ -2,8 +2,10 @@
 import React, { useEffect, useState } from "react";
 import Book from "./Book";
 import { BookType } from "../types/book";
+import AddBook from "./AddBook";
 
 const BookTracker = () => {
+  const [open, setOpen] = useState<boolean>(false);
   const [books, setBooks] = useState<BookType[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -13,15 +15,16 @@ const BookTracker = () => {
     try {
       const res = await fetch("/api/books");
 
+      const data = await res.json();
+
       if (!res.ok) {
-        throw new Error(`Fetching books failed with status ${res.status}`);
+        throw new Error(data?.message);
       }
 
-      const books = await res.json();
-      setBooks(books);
-    } catch (err) {
+      setBooks(data);
+    } catch (err: any) {
       console.error("Error fetching books:", err);
-      setError("Oops, cannot fetch books. Please try again.");
+      setError(err.message);
     }
   }
 
@@ -31,7 +34,20 @@ const BookTracker = () => {
   }, []);
 
   return (
-    <div className="w-full md:w-1/2 min-h-3/4 bg-gray-300 flex flex-col items-center rounded-2xl justify-start p-2 md:p-4">
+    <div className="w-full md:w-1/2  bg-gray-300 flex flex-col items-center rounded-2xl justify-start p-2 md:p-4">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-fit cursor-pointer  rounded-lg bg-black text-white mb-6 text-nowrap px-4 py-2"
+      >
+        Add book
+      </button>
+      {open && (
+        <AddBook
+          open={open}
+          onClose={() => setOpen(false)}
+          refetch={getBooks}
+        />
+      )}
       {/*Book list */}
       <div className="flex flex-col gap-4 w-full">
         {books.map((book) => (

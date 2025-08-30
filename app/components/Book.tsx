@@ -25,13 +25,16 @@ const Book = ({ id, title, author, read, refetch }: BookProps) => {
         body: JSON.stringify({ id }),
       });
 
+      const data = await res.json();
+
       if (!res.ok) {
-        throw new Error(`Marking book failed`);
+        throw new Error(data?.message);
       }
 
       await refetch();
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error toggling book status:", error);
+      alert(error.message);
     } finally {
       setLoading(false);
     }
